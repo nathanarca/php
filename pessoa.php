@@ -69,7 +69,7 @@ class Pessoa{
 		$stmt->bindParam(':id',$id);	
 	
 		return $stmt->execute();
-	}
+}
 	
 	public function carregar($id){
 
