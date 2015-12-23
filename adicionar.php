@@ -13,7 +13,6 @@ require_once('pessoa.php');
 	
 	$adicionada = $pessoa->adicionar();
 
-	
 	var_dump($pessoa);
 
 echo $adicionada;

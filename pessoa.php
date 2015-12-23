@@ -2,13 +2,13 @@
 
 class Pessoa{
 	
-		public $id;
-		public $nome;
-		public $sobrenome;
-		public $email;
-		public $telefone;
-		public $celular;
-		public $sexo;
+	public $id;
+	public $nome;
+	public $sobrenome;
+	public $email;
+	public $telefone;
+	public $celular;
+	public $sexo;
 
 	private	function conectar(){
            
@@ -18,22 +18,18 @@ class Pessoa{
 		$port='3306';
 		$banco='php';
 			
+		$pdo = new 	PDO("mysql:host=$host;port=$port;dbname=$banco", $user, $pass);
 	
-	$pdo = new 	PDO("mysql:host=$host;port=$port;dbname=$banco", $user, $pass);
-	
-	return $pdo;
+		return $pdo;
 	
 	}
-	
 	
 	public function adicionar(){
 	
 		$pdo = $this->conectar();
 	
-   
 		$stmt = $pdo->prepare("INSERT INTO pessoas (nome,sobrenome,email,telefone,celular,sexo) VALUES (?, ?,?,?,?,?)");	
 		
-
 		$stmt->bindParam(1,$this->nome);
 		$stmt->bindParam(2,$this->sobrenome);
 		$stmt->bindParam(3,$this->email);	
@@ -79,10 +75,12 @@ class Pessoa{
 
 		$pdo = $this->conectar();
 		
-		$recordset = $pdo->query("SELECT * FROM pessoas WHERE id = $id ", PDO::FETCH_OBJ);
-
-		var_dump($recordset);
-	    
+		$stmt = $pdo->prepare("SELECT * FROM pessoas WHERE id = $id ");
+		
+		$stmt->execute();
+	    		
+		$recordset = $stmt->fetch();
+		
 		//$this->nome      = $recordset[0]->nome;
 	    //$this->sobrenome = $recordset[0]->sobrenome;
 	    //$this->email     = $recordset[0]->email;
